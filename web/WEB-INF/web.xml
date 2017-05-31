@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>GestioLlibres</servlet-name>
+        <servlet-class>control.GestioLlibres</servlet-class>
+        <init-param>
+            <param-name>cadenaConnexioExt</param-name>
+            <param-value>jdbc:oracle:thin:@ieslaferreria.xtec.cat:8081:INSLAFERRERI</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cadenaConnexioInt</param-name>
+            <param-value>jdbc:oracle:thin:@192.168.180.10:1521:INSLAFERRERI</param-value>
+        </init-param>
+        <init-param>
+            <param-name>driver</param-name>
+            <param-value>oracle.jdbc.driver.OracleDriver</param-value>
+        </init-param>
+        <init-param>
+            <param-name>usuari</param-name>
+            <param-value>AITOR_ROMERO_CONNECTION</param-value>
+        </init-param>
+        <init-param>
+            <param-name>contrasenya</param-name>
+            <param-value>1234</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GestioLlibres</servlet-name>
+        <url-pattern>/GestioLlibres</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
