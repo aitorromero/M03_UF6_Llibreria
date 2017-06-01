@@ -12,6 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <br>
+        <br>
+        <center><a href='index.jsp'>TORNAR</a></center>
     </body>
 </html>
