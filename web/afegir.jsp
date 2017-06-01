@@ -49,7 +49,8 @@
              <a ><%=(resposta == null) ? "" : resposta%> </a>
 
         </form>
-
+        
+        <a href='index.jsp'>TORNAR</a><br><br>
 
     </body>
 </html>

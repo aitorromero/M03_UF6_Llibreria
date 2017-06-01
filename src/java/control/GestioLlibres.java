@@ -41,22 +41,22 @@ public class GestioLlibres extends HttpServlet {
         String action = request.getParameter("accio");
         switch (action) {
             case "afegir":
-                String resposta1 = afegirLLibre(request, response);
+                String resposta1 = afegirLlibre(request, response);
                 request.setAttribute("afegit", resposta1);
                 anarAPagina("afegir.jsp", request, response);
                 break;
             case "cercar":
-                String resposta2 = afegirLLibre(request, response);
+                String resposta2 = cercarTotsLlibres(request, response);
                 request.setAttribute("cercat", resposta2);
                 anarAPagina("cercarTots.jsp", request, response);
                 break;
             case "modificar":
-                String resposta3 = afegirLLibre(request, response);
+                String resposta3 = modificarLlibre(request, response);
                 request.setAttribute("modificat", resposta3);
                 anarAPagina("modificar.jsp", request, response);
                 break;
             case "eliminar":
-                String resposta4 = afegirLLibre(request, response);
+                String resposta4 = eliminarLlibre(request, response);
                 request.setAttribute("eliminat", resposta4);
                 anarAPagina("eliminar.jsp", request, response);
                 break;
@@ -128,7 +128,7 @@ public class GestioLlibres extends HttpServlet {
         }
     }
 
-    private String afegirLLibre(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+    private String afegirLlibre(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         LlibreDao dao = null;
         String isbn, titol, autor, editorial, any, estok;
         int anyEdicio, estoc;
@@ -158,5 +158,17 @@ public class GestioLlibres extends HttpServlet {
         }
       
         return resposta;
+    }
+    
+    private String modificarLlibre(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        return null;
+    }
+    
+    private String eliminarLlibre(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        return null;
+    }
+    
+    private String cercarTotsLlibres(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        return null;
     }
 }
