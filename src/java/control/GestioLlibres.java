@@ -161,6 +161,22 @@ public class GestioLlibres extends HttpServlet {
     }
     
     private String modificarLlibre(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        LlibreDao dao = null;
+        String isbn, resposta;
+        boolean validar;
+        resposta="Llibre eliminat correctament";
+        if (!(isbn = req.getParameter("isbn_")).matches("[0-9]{13}")) {
+            resposta = "ISBN incorrecte, ha d'estar format per 13 dígits";
+            validar = false;
+        }else{
+            isbn= req.getParameter("isbn_");
+            if(dao.eliminar(Integer.parseInt(isbn))){
+                validar = true;
+            }else{
+                resposta = "No s'ha pogut trobar el llibre"; 
+                validar = false;
+            }
+        }
         return null;
     }
     

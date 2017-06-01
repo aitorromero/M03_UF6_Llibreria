@@ -18,15 +18,21 @@
         <form action="GestioLlibres?accio=afegir" method="post">            
 
             <center><b><h3>Llibre a modificar:</h3></b></center>
-            <br><br>
-            <table cellspacing="2" cellpadding="2" border="0" align="center">                
-                <center><h4>ISBN del llibre a modificar</h4></center>
+            
+            <table cellspacing="2" cellpadding="2" border="0" align="center">
+                <tr>
+                    <td></td>
+                    <td><h4>ISBN del llibre a modificar</h4></td>
+                </tr>
+                <!--<center><h4>ISBN del llibre a modificar</h4></center>-->
                 <tr>
                     <td align="right">ISBN:</td>
                     <td><input type="Text" name="isbn_" size="13"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center"><h4>Dades que es volen modificar</h4></td>
+                    <td></td>
+                    <td><h4>Dades que es volen modificar</h4></td>
+                    <!--<td colspan="2" align="center"><h4>Dades que es volen modificar</h4></td>-->
                 </tr>               
                 
                 <tr>
@@ -50,12 +56,12 @@
                     <td><input type="Text" name="estoc_" size="3"></td>
                 </tr>
                 <tr>
-                   <td colspan="2" align="center"><input type="Submit" value="Afegir"></td>
+                   <td colspan="2" align="center"><input type="Submit" value="Modificar"></td>
                 </tr>                
 
             </table>   
 
-            <% String resposta = (String) request.getAttribute("afegit");%>
+            <% String resposta = (String) request.getAttribute("modificat");%>
              <a ><%=(resposta == null) ? "" : resposta%> </a>
 
         </form>
