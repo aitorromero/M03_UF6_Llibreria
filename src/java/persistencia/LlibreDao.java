@@ -70,7 +70,7 @@ public class LlibreDao {
     }
 
     public Llibre cercarPerISBN(String isbn) {
-        String consulta = " SELECT * FROM LLIBRE WHERE isbn='" + isbn + "'";
+        String consulta = " SELECT * FROM LLIBREs WHERE isbn='" + isbn + "'";
         Statement st;
         ResultSet rs;
         Llibre llib = null;
@@ -91,7 +91,7 @@ public class LlibreDao {
     }
 
     public boolean modificar(Llibre l) {
-        String consulta = "UPDATE Llibre SET TITOL = ?, AUTOR = ?, ANYO = ?, EDITORIAL = ? , ESTOC = ? WHERE ISBN = ? ";
+        String consulta = "UPDATE Llibres SET TITOL = ?, AUTOR = ?, ANYO = ?, EDITORIAL = ? , ESTOC = ? WHERE ISBN = ? ";
         PreparedStatement ps;
         boolean modificado = false;
         try {
@@ -109,13 +109,13 @@ public class LlibreDao {
         return modificado;
     }
 
-    public boolean eliminar(int isbn) {
+    public boolean eliminar(String isbn) {
         boolean eliminat = false;
-        String consulta = "DELETE FROM Llibre WHERE ISBN = ?";
+        String consulta = "DELETE FROM Llibres WHERE ISBN = ?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(consulta);
-            ps.setInt(1, isbn);
+            ps.setString(1, isbn);
             ps.executeUpdate();
             eliminat = true;
         } catch (SQLException ex) {
@@ -125,7 +125,7 @@ public class LlibreDao {
     }
 
     public List<Llibre> cercarTots() {
-        String consulta = " SELECT * FROM LLIBRE";
+        String consulta = " SELECT * FROM LLIBRES";
         Statement st;
         ResultSet rs;
         List<Llibre> llista = new ArrayList<>();

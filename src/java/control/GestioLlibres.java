@@ -57,6 +57,9 @@ public class GestioLlibres extends HttpServlet {
                 break;
             case "eliminar":
                 String resposta4 = eliminarLlibre(request, response);
+                try (PrintWriter out = response.getWriter()) {
+                    out.println(dbCon.esOberta() + "illo cabesa2");
+                }
                 request.setAttribute("eliminat", resposta4);
                 anarAPagina("eliminar.jsp", request, response);
                 break;
@@ -156,34 +159,38 @@ public class GestioLlibres extends HttpServlet {
             dao = new LlibreDao(con);
             dao.afegir(new Llibre(isbn, titol, autor, editorial, anyEdicio, estoc));
         }
-      
+
         return resposta;
     }
-    
+
     private String modificarLlibre(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        return null;
+    }
+
+    private String eliminarLlibre(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         LlibreDao dao = null;
         String isbn, resposta;
         boolean validar;
-        resposta="Llibre eliminat correctament";
+        resposta = "Llibre eliminat correctament";
         if (!(isbn = req.getParameter("isbn_")).matches("[0-9]{13}")) {
             resposta = "ISBN incorrecte, ha d'estar format per 13 dígits";
             validar = false;
-        }else{
-            isbn= req.getParameter("isbn_");
-            if(dao.eliminar(Integer.parseInt(isbn))){
+        } else {
+            //isbn = "0123456789123";
+            //isbn=req.getParameter("isbn_");
+//            try (PrintWriter out = res.getWriter()) {
+//                    out.println(isbn);
+//                }
+            if (dao.eliminar(isbn)) {
                 validar = true;
-            }else{
-                resposta = "No s'ha pogut trobar el llibre"; 
+            } else {
+                resposta = "No s'ha pogut trobar el llibre";
                 validar = false;
             }
         }
-        return null;
+        return resposta;
     }
-    
-    private String eliminarLlibre(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        return null;
-    }
-    
+
     private String cercarTotsLlibres(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         return null;
     }
