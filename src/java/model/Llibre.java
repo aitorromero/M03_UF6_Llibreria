@@ -22,6 +22,16 @@ public class Llibre implements Serializable {
         this.anyEdicio = anyEdicio;
         this.estoc = estoc;
     }
+
+    public Llibre(String isbn, String titol, String autor, String editorial, int stoc) {
+        this.isbn = isbn;
+        this.titol = titol;
+        this.autor = autor;
+        this.editorial = editorial;
+        this.estoc = stoc;
+    }
+    
+    
     
     public String getIsbn() {
         return isbn;

@@ -163,6 +163,7 @@ public class GestioLlibres extends HttpServlet {
     private String modificarLlibre(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         LlibreDao dao = null;
         String isbn, titol, autor, editorial, any, estok;
+        int estoc;
         boolean modificar;
         
         String resposta = "Llibre modificat correctament";
@@ -181,7 +182,14 @@ public class GestioLlibres extends HttpServlet {
                 || (editorial = req.getParameter("editorial_")) == null) {
             resposta = "s'han d'emplenar tots els camps";
             modificar = false;
+        }else{
+            estoc = Integer.parseInt(estok);
+            
+            dao = new LlibreDao(con);
+            dao.modificar(new Llibre(isbn, titol, autor, editorial, estoc));
         }
+        
+        
         
         return resposta;
     }
