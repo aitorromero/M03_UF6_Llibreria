@@ -2,6 +2,7 @@ package control;
 
 import java.io.*;
 import java.sql.*;
+import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import model.*;
@@ -46,8 +47,8 @@ public class GestioLlibres extends HttpServlet {
                 anarAPagina("afegir.jsp", request, response);
                 break;
             case "cercar":
-                String resposta2 = cercarTotsLlibres(request, response);
-                request.setAttribute("cercat", resposta2);
+                List<Llibre> resposta2 = cercarTotsLlibres(request, response);
+                request.setAttribute("llibres", resposta2);
                 anarAPagina("cercarTots.jsp", request, response);
                 break;
             case "modificar":
@@ -204,12 +205,6 @@ public class GestioLlibres extends HttpServlet {
             resposta = "ISBN incorrecte, ha d'estar format per 13 dígits";
             validar = false;
         } else {
-            //isbn = "0123456789123";
-            //isbn=req.getParameter("isbn_");
-//            try (PrintWriter out = res.getWriter()) {
-//                    out.println(isbn);
-//                }
-
             dao = new LlibreDao(con);
             if (dao.eliminar(isbn)) {
                 validar = true;
@@ -221,7 +216,12 @@ public class GestioLlibres extends HttpServlet {
         return resposta;
     }
 
-    private String cercarTotsLlibres(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        return null;
+    private List<Llibre> cercarTotsLlibres(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        LlibreDao dao = null;
+        List<Llibre> llibres = null;
+        
+        dao = new LlibreDao(con);
+        llibres = dao.cercarTots();
+        return llibres;
     }
 }

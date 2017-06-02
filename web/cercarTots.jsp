@@ -20,11 +20,12 @@
 
             <center><b>Cerca de tots els llibres:</b></center>
             <br><br>
+            <table cellspacing="2" cellpadding="2" border="0" align="center">
             <%
             List<Llibre>llibres=null;
             for (Llibre l : llibres) {
             %>
-            <table cellspacing="2" cellpadding="2" border="0" align="center">
+            
                 <tr>
                     <td colspan="2" align="center"><h4>Dades del llibre</h4></td>
                 </tr>                
@@ -56,9 +57,9 @@
                    <td colspan="2" align="center"><input type="Submit" value="Cerca"></td>
                 </tr> 
 
-            </table> 
+             
             <%}%>
-              
+            </table>  
 
             <% String resposta = (String) request.getAttribute("eliminat");%>
             <a ><%=(resposta == null) ? "" : resposta%> </a>

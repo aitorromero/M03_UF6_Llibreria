@@ -15,7 +15,7 @@
     
     <a href='eliminar.jsp'>ELIMINAR UN LLIBRE</a><br><br>
     
-    <a href='cercarTots.jsp'>LLISTAR TOTS ELS LLIBRES</a><br><br>
+    <a href='GestioLlibres?accio=cercar'>LLISTAR TOTS ELS LLIBRES</a><br><br>
     <p>&nbsp;</p>
     <%@ include file="myFooter.html" %>
 </body>

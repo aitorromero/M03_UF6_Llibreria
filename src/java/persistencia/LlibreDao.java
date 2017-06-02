@@ -125,7 +125,7 @@ public class LlibreDao {
     }
 
     public List<Llibre> cercarTots() {
-        String consulta = " SELECT * FROM LLIBRES";
+        String consulta = "SELECT * FROM LLIBRES";
         Statement st;
         ResultSet rs;
         List<Llibre> llista = new ArrayList<>();
