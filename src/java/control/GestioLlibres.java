@@ -2,6 +2,7 @@ package control;
 
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -46,7 +47,7 @@ public class GestioLlibres extends HttpServlet {
                 request.setAttribute("afegit", resposta1);
                 anarAPagina("afegir.jsp", request, response);
                 break;
-            case "cercar":
+            case "cercar":                
                 List<Llibre> resposta2 = cercarTotsLlibres(request, response);
                 request.setAttribute("llibres", resposta2);
                 anarAPagina("cercarTots.jsp", request, response);
@@ -161,37 +162,28 @@ public class GestioLlibres extends HttpServlet {
         return resposta;
     }
 
-    private String modificarLlibre(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+    private String modificarLlibre(HttpServletRequest req, HttpServletResponse response) {
         LlibreDao dao = null;
         String isbn, titol, autor, editorial, any, estok;
-        int estoc;
-        boolean modificar;
-        
-        String resposta = "Llibre modificat correctament";
-        
+        int anyEdicio, estoc;
+        String resposta="Llibre modificat correctament";
         if (!(isbn = req.getParameter("isbn_")).matches("[0-9]{13}")) {
             resposta = "ISBN incorrecte, ha d'estar format per 13 dígits";
-            modificar = false;
         } else if (!(any = req.getParameter("anyEdicio_")).matches("^[1-9][0-9]{1,3}")) {
             resposta = "Any d'edició incorrecte, ha de ser any entre 1000-2999";
-            modificar = false;
         } else if (!(estok = req.getParameter("estoc_")).matches("[0-9]{1,3}")) {
             resposta = "Estoc incorrecte";
-            modificar = false;
         } else if ((titol = req.getParameter("titol_")) == null
                 || (autor = req.getParameter("autor_")) == null
                 || (editorial = req.getParameter("editorial_")) == null) {
             resposta = "s'han d'emplenar tots els camps";
-            modificar = false;
-        }else{
+        } else {
+            anyEdicio = Integer.parseInt(any);
             estoc = Integer.parseInt(estok);
-            
+
             dao = new LlibreDao(con);
-            dao.modificar(new Llibre(isbn, titol, autor, editorial, estoc));
+            dao.modificar(new Llibre(isbn, titol, autor, editorial, anyEdicio, estoc));
         }
-        
-        
-        
         return resposta;
     }
 
@@ -217,11 +209,7 @@ public class GestioLlibres extends HttpServlet {
     }
 
     private List<Llibre> cercarTotsLlibres(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        LlibreDao dao = null;
-        List<Llibre> llibres = null;
-        
-        dao = new LlibreDao(con);
-        llibres = dao.cercarTots();
-        return llibres;
+        LlibreDao dao = new LlibreDao(con);
+        return dao.cercarTots();
     }
 }

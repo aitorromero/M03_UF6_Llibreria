@@ -42,19 +42,18 @@ public class LlibreDao {
         return afegit;
     }*/
     
-        public boolean afegir(Llibre l) {
+    public boolean afegir(Llibre llib) {
         boolean afegit = true;
         PreparedStatement pt = null;
-        String sentencia = "INSERT INTO Llibres(TITOL, AUTOR, ANYO, ISBN, EDITORIAL, ESTOC)"
-                + " VALUES(?,?,?,?,?,?)";
+        String sentencia = "INSERT INTO LLIBRESS (ISBN, TITOL, AUTOR, EDITORIAL, ANYO, ESTOC) VALUES (?,?,?,?,?,?)";
         try {
             pt = con.prepareStatement(sentencia);
-            pt.setString(1, l.getTitol());
-            pt.setString(2, l.getAutor());
-            pt.setInt(3, l.getAnyEdicio());
-            pt.setString(4, l.getIsbn());
-            pt.setString(5, l.getEditorial());
-            pt.setInt(6, l.getEstoc());
+            pt.setString(1, llib.getIsbn());
+            pt.setString(2, llib.getTitol());
+            pt.setString(3, llib.getAutor());
+            pt.setString(4, llib.getEditorial());
+            pt.setInt(5, llib.getAnyEdicio());
+            pt.setInt(6, llib.getEstoc());
 
             if (pt.executeUpdate() == 0) {
                 afegit = false;
@@ -70,7 +69,7 @@ public class LlibreDao {
     }
 
     public Llibre cercarPerISBN(String isbn) {
-        String consulta = " SELECT * FROM LLIBREs WHERE isbn='" + isbn + "'";
+        String consulta = " SELECT * FROM LLIBRESS WHERE isbn='" + isbn + "'";
         Statement st;
         ResultSet rs;
         Llibre llib = null;
@@ -90,28 +89,34 @@ public class LlibreDao {
         return llib;
     }
 
-    public boolean modificar(Llibre l) {
-        String consulta = "UPDATE Llibres SET TITOL = ?, AUTOR = ?, ANYO = ?, EDITORIAL = ? , ESTOC = ? WHERE ISBN = ? ";
-        PreparedStatement ps;
-        boolean modificado = false;
+    public boolean modificar(Llibre llibre) {
+        boolean modificat = true;
+        PreparedStatement pt = null;
+        String sentencia = "UPDATE LLIBRESS SET TITOL = ?, AUTOR = ?, EDITORIAL = ?, ANYO = ?, ESTOC = ? WHERE ISBN = ?";
         try {
-            ps = con.prepareStatement(consulta);
-            ps.setString(1, l.getTitol());
-            ps.setString(2, l.getAutor());
-            ps.setInt(3, l.getAnyEdicio());
-            ps.setString(6, l.getIsbn());
-            ps.setString(4, l.getEditorial());
-            ps.setInt(5, l.getEstoc());
-            modificado = ps.executeUpdate() > 0;
+            pt = con.prepareStatement(sentencia);
+            pt.setString(1, llibre.getTitol());
+            pt.setString(2, llibre.getAutor());
+            pt.setString(3, llibre.getEditorial());
+            pt.setInt(4, llibre.getAnyEdicio());
+            pt.setInt(5, llibre.getEstoc());
+            pt.setString(6, llibre.getIsbn());
+
+            if (pt.executeUpdate() == 0) {
+                modificat = false;
+            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            modificat = false;
+        } finally {
+            tancarRecurs(pt);
         }
-        return modificado;
+        return modificat;
     }
 
     public boolean eliminar(String isbn) {
         boolean eliminat = false;
-        String consulta = "DELETE FROM Llibres WHERE ISBN = ?";
+        String consulta = "DELETE FROM LLIBRESS WHERE ISBN = ?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(consulta);
@@ -125,7 +130,7 @@ public class LlibreDao {
     }
 
     public List<Llibre> cercarTots() {
-        String consulta = "SELECT * FROM LLIBRES";
+        String consulta = " SELECT * FROM LLIBRESS";
         Statement st;
         ResultSet rs;
         List<Llibre> llista = new ArrayList<>();
