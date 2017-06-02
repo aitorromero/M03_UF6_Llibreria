@@ -56,10 +56,7 @@ public class GestioLlibres extends HttpServlet {
                 anarAPagina("modificar.jsp", request, response);
                 break;
             case "eliminar":
-                String resposta4 = eliminarLlibre(request, response);
-                try (PrintWriter out = response.getWriter()) {
-                    out.println(dbCon.esOberta() + "illo cabesa2");
-                }
+                String resposta4 = eliminarLlibre(request, response);                
                 request.setAttribute("eliminat", resposta4);
                 anarAPagina("eliminar.jsp", request, response);
                 break;
@@ -181,6 +178,8 @@ public class GestioLlibres extends HttpServlet {
 //            try (PrintWriter out = res.getWriter()) {
 //                    out.println(isbn);
 //                }
+            
+            dao = new LlibreDao(con);
             if (dao.eliminar(isbn)) {
                 validar = true;
             } else {
