@@ -15,7 +15,7 @@
 
         <%@ include file="myHeader.html" %>
 
-        <form action="GestioLlibres?accio=afegir" method="post">            
+        <form action="GestioLlibres?accio=modificar" method="post">            
 
             <center><b><h3>Llibre a modificar:</h3></b></center>
             

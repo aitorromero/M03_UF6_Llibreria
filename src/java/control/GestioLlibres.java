@@ -56,7 +56,7 @@ public class GestioLlibres extends HttpServlet {
                 anarAPagina("modificar.jsp", request, response);
                 break;
             case "eliminar":
-                String resposta4 = eliminarLlibre(request, response);                
+                String resposta4 = eliminarLlibre(request, response);
                 request.setAttribute("eliminat", resposta4);
                 anarAPagina("eliminar.jsp", request, response);
                 break;
@@ -161,14 +161,37 @@ public class GestioLlibres extends HttpServlet {
     }
 
     private String modificarLlibre(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        return null;
+        LlibreDao dao = null;
+        String isbn, titol, autor, editorial, any, estok;
+        boolean modificar;
+        
+        String resposta = "Llibre modificat correctament";
+        
+        if (!(isbn = req.getParameter("isbn_")).matches("[0-9]{13}")) {
+            resposta = "ISBN incorrecte, ha d'estar format per 13 dígits";
+            modificar = false;
+        } else if (!(any = req.getParameter("anyEdicio_")).matches("^[1-9][0-9]{1,3}")) {
+            resposta = "Any d'edició incorrecte, ha de ser any entre 1000-2999";
+            modificar = false;
+        } else if (!(estok = req.getParameter("estoc_")).matches("[0-9]{1,3}")) {
+            resposta = "Estoc incorrecte";
+            modificar = false;
+        } else if ((titol = req.getParameter("titol_")) == null
+                || (autor = req.getParameter("autor_")) == null
+                || (editorial = req.getParameter("editorial_")) == null) {
+            resposta = "s'han d'emplenar tots els camps";
+            modificar = false;
+        }
+        
+        return resposta;
     }
 
     private String eliminarLlibre(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         LlibreDao dao = null;
         String isbn, resposta;
         boolean validar;
-        resposta = "Llibre eliminat correctament";
+        
+        resposta = "Llibre eliminat correctament";        
         if (!(isbn = req.getParameter("isbn_")).matches("[0-9]{13}")) {
             resposta = "ISBN incorrecte, ha d'estar format per 13 dígits";
             validar = false;
@@ -178,7 +201,7 @@ public class GestioLlibres extends HttpServlet {
 //            try (PrintWriter out = res.getWriter()) {
 //                    out.println(isbn);
 //                }
-            
+
             dao = new LlibreDao(con);
             if (dao.eliminar(isbn)) {
                 validar = true;
